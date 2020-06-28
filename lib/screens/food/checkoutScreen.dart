@@ -1,4 +1,8 @@
+import 'package:eatwat/screens/food/status.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class CheckoutScreen extends StatefulWidget {
   List cart;
@@ -10,7 +14,8 @@ class CheckoutScreen extends StatefulWidget {
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> {
+class _CheckoutScreenState extends State<CheckoutScreen> { 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,12 +129,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           SizedBox(),
 
           RaisedButton(
-            onPressed: () {},
+            onPressed: () {createData();
+            Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Status()));
+              },
             textColor: Colors.white,
             padding: const EdgeInsets.all(0.0),
             child: Container(
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Color(0xFFEF9A9A),
               ),
               padding: const EdgeInsets.all(15.0),
               child:
@@ -141,4 +149,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     )
     );
   }
-}
+
+   void createData() async {
+    
+    String foodStoreId = widget.cart[0].id;
+    List<Map> dishes = [];
+    widget.cart.forEach((e) {
+        dishes.add(e.toMap());
+        print(dishes);
+        print(FirebaseAuth.instance.currentUser());
+    });
+
+final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+final email = user.email;
+   Firestore.instance.collection('Order').add(
+           {'dishes': dishes,
+            'foodStoreId': foodStoreId,
+            'status': 1,
+            'time': DateTime.now(),
+            'totalPrice': widget.sum,
+            'userId': email,
+            }
+         );
+       
+     }
+  }

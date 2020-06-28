@@ -9,4 +9,11 @@ class Food {
   int quantity = 1;
 
   Food({this.name, this.price, this.image, this.id, this.availability, this.des});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'quantity': quantity,
+    };
+  }
 }

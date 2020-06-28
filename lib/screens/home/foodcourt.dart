@@ -119,7 +119,7 @@ class _FoodcourtScreen extends State<FoodcourtScreen> {
                       "  Foodcourt",
                       style: TextStyle(
                           fontSize: 19.0,
-                          color: Color(0xFFFD7465),
+                          color: Colors.red[300],
                           fontWeight: FontWeight.bold),
                     )),
                 FlatButton(
@@ -131,7 +131,7 @@ class _FoodcourtScreen extends State<FoodcourtScreen> {
                       "Store",
                       style: TextStyle(
                           fontSize: 19.0,
-                          color: Color(0xFFFD7465),
+                          color: Colors.red[300],
                           fontWeight: FontWeight.bold),
                     )),
               ],

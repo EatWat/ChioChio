@@ -29,13 +29,13 @@ class _FoodScreenState extends State<FoodScreen> {
               content: Text('The items in your cart may be cleared.'),
               actions: <Widget>[
                 FlatButton(
-                  color: Colors.blue,
+                  color: Colors.red[200],
                   onPressed: () {Navigator.of(context).pop(true);}, 
-                  child: Text('Yes')),
+                  child: Text('Yes', style: TextStyle(color: Colors.white),)),
                 FlatButton(
                   //color: Colors.blue,
                   onPressed: () {Navigator.of(context).pop(false);}, 
-                  child: Text('No')),
+                  child: Text('No',style: TextStyle(color: Colors.red[300]))),
               ],
             )
           );
@@ -44,8 +44,10 @@ class _FoodScreenState extends State<FoodScreen> {
           length: 2,
           child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.red[200],
             title: Text('${widget.name}', style: TextStyle(fontFamily: 'Raleway', fontSize: 20)),
             bottom: TabBar(
+              indicatorColor: Colors.red[300],
                 tabs: <Widget>[
                   Tab(child: Text( "All food",
                         style: TextStyle(fontFamily: 'Raleway', fontSize: 18))),
