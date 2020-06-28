@@ -17,6 +17,23 @@
     firebase.initializeApp(firebaseConfig);
   }
 
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      document.querySelectorAll('.logged-out').forEach(item => item.style.display = 'none');
+      document.querySelectorAll('.logged-in').forEach(item => item.style.display = 'block');
+    } else {
+      document.querySelectorAll('.logged-out').forEach(item => item.style.display = 'block');
+      document.querySelectorAll('.logged-in').forEach(item => item.style.display = 'none');
+    }
+})
+
+// logout
+document.querySelector('#logout').addEventListener('click', (e) => {
+  e.preventDefault();
+  firebase.auth().signOut();
+  location.replace("index.html");
+});
+
   
   if(document.getElementById("form")){
     document.getElementById("form").addEventListener("submit",(e)=>{

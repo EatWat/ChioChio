@@ -20,49 +20,49 @@ const homeContent = document.querySelector('.home');
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
     if (user) {
-      homeContent.innerHTML = `
+  //     homeContent.innerHTML = `
 
-      <div class="row">
-      <div class="col-md-6" id="firstSection">
-          <form class="border p-4 mb-4" id="form"> 
-              <div class="form-group">
-                  <label>Dish name: </label>
-                  <input type="text" class="form-control" id="name" placeholder="Enter Dish Name:" required></input>
-              </div>
+  //     <div class="row">
+  //     <div class="col-md-6" id="firstSection">
+  //         <form class="border p-4 mb-4" id="form"> 
+  //             <div class="form-group">
+  //                 <label>Dish name: </label>
+  //                 <input type="text" class="form-control" id="name" placeholder="Enter Dish Name:" required></input>
+  //             </div>
 
-              <div class="form-group">
-                  <label>Description: </label>
-                  <textarea class="form-control" id="description" placeholder="Enter Description of The Dish:"></textarea>
-              </div>
+  //             <div class="form-group">
+  //                 <label>Description: </label>
+  //                 <textarea class="form-control" id="description" placeholder="Enter Description of The Dish:"></textarea>
+  //             </div>
 
-              <div class="form-group">
-                  <label>Price: </label>
-                  <input type="number" class="form-control" id="price" placeholder="Enter Dish Price:" required></input>
-              </div>
+  //             <div class="form-group">
+  //                 <label>Price: </label>
+  //                 <input type="number" class="form-control" id="price" placeholder="Enter Dish Price:" required></input>
+  //             </div>
 
-              <div class="form-group">
-                  <label>Photo Link: </label>
-                  <input type="text" class="form-control" id="photo" placeholder="(Optional) Enter Photo's Link:"></input>
-              </div>
+  //             <div class="form-group">
+  //                 <label>Photo Link: </label>
+  //                 <input type="text" class="form-control" id="photo" placeholder="(Optional) Enter Photo's Link:"></input>
+  //             </div>
 
-              <div class="form-group">
-                  <label>Availability: </label>
-                  <input type="checkbox" class="form-control" id="availability" checked=true></input>
-              </div>
+  //             <div class="form-group">
+  //                 <label>Availability: </label>
+  //                 <input type="checkbox" class="form-control" id="availability" checked=true></input>
+  //             </div>
 
-              <button type="submit" id="button1" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>Add Dish</button>
-              <button style="display: none" id="button2" class="btn btn-success">Update Dish</button>
-              <button style="display: none" id="button3" class="btn btn-danger">Cancel</button>
+  //             <button type="submit" id="button1" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>Add Dish</button>
+  //             <button style="display: none" id="button2" class="btn btn-success">Update Dish</button>
+  //             <button style="display: none" id="button3" class="btn btn-danger">Cancel</button>
 
-          </form>
+  //         </form>
           
-      </div>
+  //     </div>
 
-      <div class="col-md-6" id="cardSection">
-      </div>
+  //     <div class="col-md-6" id="cardSection">
+  //     </div>
       
 
-  </div>`;
+  // </div>`;
       setupUI(user);
     } else {
       homeContent.innerHTML = '<h5 class="center-align">Please Login to Access All Features</h5>';
