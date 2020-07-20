@@ -14,29 +14,29 @@ class FoodcourtScreen extends StatefulWidget {
 }
 
 class _FoodcourtScreen extends State<FoodcourtScreen> {
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Order',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Account',
-      style: optionStyle,
-    ),
-  ];
+  // int _selectedIndex = 0;
+  // static const TextStyle optionStyle =
+  //     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  // static const List<Widget> _widgetOptions = <Widget>[
+  //   Text(
+  //     'Index 0: Home',
+  //     style: optionStyle,
+  //   ),
+  //   Text(
+  //     'Index 1: Order',
+  //     style: optionStyle,
+  //   ),
+  //   Text(
+  //     'Index 2: Account',
+  //     style: optionStyle,
+  //   ),
+  // ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   final AuthService _auth = AuthService();
   @override
@@ -142,25 +142,25 @@ class _FoodcourtScreen extends State<FoodcourtScreen> {
                 child: FoodcourtList())),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart),
-              title: Text('Order'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              title: Text('Account'),
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.red[300],
-          onTap: _onItemTapped,
-        ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   items: const <BottomNavigationBarItem>[
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.home),
+        //       title: Text('Home'),
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.shopping_cart),
+        //       title: Text('Order'),
+        //     ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.account_circle),
+        //       title: Text('Account'),
+        //     ),
+        //   ],
+        //   currentIndex: _selectedIndex,
+        //   selectedItemColor: Colors.red[300],
+        //   onTap: _onItemTapped,
+        // ),
       ),
     );
   }

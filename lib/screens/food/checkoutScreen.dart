@@ -9,13 +9,15 @@ class CheckoutScreen extends StatefulWidget {
   double sum;
 
   CheckoutScreen(this.cart, this.sum);
+  
 
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> { 
 
+class _CheckoutScreenState extends State<CheckoutScreen> { 
+String orderId = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +75,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
             SizedBox(width: 20.0,),
             Container(
-              width: 50.0,
+              width: 60.0,
               child: Text(
                 "\$${widget.cart[index].price}",
                 style: TextStyle(
@@ -118,7 +120,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 color: Colors.black,
               ),),
             trailing: Text(
-              "\$${widget.sum}",
+              "\$${widget.sum.toDouble()}",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -129,9 +131,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           SizedBox(),
 
           RaisedButton(
-            onPressed: () {createData();
-            Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Status()));
+            onPressed: () async {
+              await createData();
+              //print('pressed checkout');
+              Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Status(orderId)));
               },
             textColor: Colors.white,
             padding: const EdgeInsets.all(0.0),
@@ -150,19 +154,19 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-   void createData() async {
+   Future<void> createData() async {
     
     String foodStoreId = widget.cart[0].id;
     List<Map> dishes = [];
     widget.cart.forEach((e) {
         dishes.add(e.toMap());
-        print(dishes);
-        print(FirebaseAuth.instance.currentUser());
+        //print(dishes);
+        //print(FirebaseAuth.instance.currentUser());
     });
 
 final FirebaseUser user = await FirebaseAuth.instance.currentUser();
 final email = user.email;
-   Firestore.instance.collection('Order').add(
+   await Firestore.instance.collection('Order').add(
            {'dishes': dishes,
             'foodStoreId': foodStoreId,
             'status': 1,
@@ -170,7 +174,11 @@ final email = user.email;
             'totalPrice': widget.sum,
             'userId': email,
             }
-         );
+         ).then((value){
+    orderId = value.documentID;
+    // print('aaaaaaaaaaaaaaaaa');
+    print(orderId);
+  });
        
      }
   }
