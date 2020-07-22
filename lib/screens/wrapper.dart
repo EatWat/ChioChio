@@ -13,19 +13,7 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-   int _currentIndex = 0;
-    final List<Widget> _children = [
-      FoodcourtScreen(),
-      Order(),
-      Account(),
-
-    ];
-
-  void onTappedBar(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+   
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -35,31 +23,7 @@ class _WrapperState extends State<Wrapper> {
     if (user == null) {
       return Authenticate();
     } else {
-      return Scaffold(
-        body: _children[_currentIndex],
-    bottomNavigationBar: BottomNavigationBar(
-      onTap: onTappedBar,
-      currentIndex: _currentIndex,
-      items: [
-        BottomNavigationBarItem(
-          icon: new Icon(Icons.home),
-          title: new Text('Home'),
-
-        ),
-        BottomNavigationBarItem(
-          icon: new Icon(Icons.shopping_cart),
-          title: new Text('Order'),
-        ),
-        BottomNavigationBarItem(
-          icon: new Icon(Icons.account_circle),
-          title: new Text('Account'),
-        ),
-      ],
-      
-      selectedItemColor: Colors.red[300],
-      
-    ),
-      );
+      return MyApp();
     }
   }
 }
