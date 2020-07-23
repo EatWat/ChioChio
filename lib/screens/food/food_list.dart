@@ -20,16 +20,14 @@ class _FoodListState extends State<FoodList> {
     final ValueSetter<Food> valueSetter = widget._valueSetter;
     final allFood = Provider.of<List<Food>>(context);
     final food = [];
-/////////////////////
-////////////////////
-//////////////////
-  if (allFood != null){
-    for (var i in allFood) {
-      if ((i.id) == (storeId) && i.availability) {
-        food.add(i);
+
+    if (allFood != null){
+      for (var i in allFood) {
+        if ((i.id) == (storeId) && i.availability) {
+          food.add(i);
+        }
       }
     }
-  }
     
     // use listview to output all items in the list
     return Scaffold(

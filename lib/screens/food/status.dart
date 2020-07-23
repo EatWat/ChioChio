@@ -16,20 +16,6 @@ class Status extends StatefulWidget {
 }
 
 class _StatusState extends State<Status> {
-    
-  //   int _currentIndex = 0;
-  //   final List<Widget> _children = [
-  //     FoodcourtScreen(),
-  //     Order(),
-  //     Account(),
-
-  //   ];
-
-  // void onTappedBar(int index) {
-  //   setState(() {
-  //     _currentIndex = index;
-  //   });
-  // }
 
   bool reviewFlag = false;
   var reviews;
@@ -107,29 +93,6 @@ class _StatusState extends State<Status> {
       );
       }
     ),
-  //  body:_children[_currentIndex],
-  //   bottomNavigationBar: BottomNavigationBar(
-  //     onTap: onTappedBar,
-  //     currentIndex: _currentIndex,
-  //     items: [
-  //       BottomNavigationBarItem(
-  //         icon: new Icon(Icons.home),
-  //         title: new Text('Home'),
-
-  //       ),
-  //       BottomNavigationBarItem(
-  //         icon: new Icon(Icons.shopping_cart),
-  //         title: new Text('Order'),
-  //       ),
-  //       BottomNavigationBarItem(
-  //         icon: new Icon(Icons.account_circle),
-  //         title: new Text('Account'),
-  //       ),
-  //     ],
-      
-  //     selectedItemColor: Colors.red[300],
-      
-  //   ),
       );
    }
 

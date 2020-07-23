@@ -2,9 +2,8 @@ import 'package:eatwat/screens/food/order.dart';
 import 'package:eatwat/screens/home/account.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:eatwat/services/auth.dart';
 
-import 'foodcourt.dart';
+import 'package:eatwat/screens/home/tab.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +18,7 @@ class _MyAppState extends State<MyApp> {
 
   int _currentIndex = 0;
     final List<Widget> _children = [
-      FoodcourtScreen(),
+      TabPage(),
       Order(),
       Account(),
 
@@ -33,8 +32,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _children[_currentIndex],
-    bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
       onTap: onTappedBar,
       currentIndex: _currentIndex,
       items: [
@@ -56,7 +56,6 @@ class _MyAppState extends State<MyApp> {
       selectedItemColor: Colors.red[300],
       
     ),
-      //home: FoodcourtScreen(),
     );
   }
 }
