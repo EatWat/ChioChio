@@ -1,12 +1,5 @@
-import 'package:eatwat/models/foodcourt_model.dart';
-import 'package:eatwat/screens/food/order.dart';
-import 'package:eatwat/screens/home/account.dart';
-import 'package:eatwat/screens/home/foodcourt.dart';
-import 'package:eatwat/screens/home/store.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eatwat/screens/food/review.dart';
-
 class Status extends StatefulWidget {
   String orderId;
   Status(this.orderId);
@@ -31,8 +24,6 @@ class _StatusState extends State<Status> {
   @override
   Widget build(BuildContext context) {
     String id = widget.orderId.toString();
-    print(id);
-    print('aaaaaaaaaaa');
      return Scaffold(
     body: StreamBuilder(
       stream: Firestore.instance.collection('Order').document(id).snapshots(),
@@ -88,7 +79,39 @@ class _StatusState extends State<Status> {
               ),
             ],
           ),
-          
+          Stack(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(top: 60.0, left: 35.0),
+                child: Text(
+                  "Order Summary : ",
+                  style: TextStyle(
+                      fontSize: 28.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 113.0, left: 70.0, right: 70.0),
+                child: Center(
+                  child: Text((() {
+                    List food = snapshot.data['dishes'];
+                    String st = '';
+                    food.forEach((e) {
+                      st = st + e.toString() + '\n\n' ;
+                    });
+
+                    return st;
+                  })(),
+                    style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ]
       );
       }

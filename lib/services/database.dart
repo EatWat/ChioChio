@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eatwat/models/foodcourt_model.dart';
 import 'package:eatwat/models/Store_model.dart';
 import 'package:eatwat/models/food_model.dart';
+import 'package:eatwat/models/order_model.dart';
 
 
 class DatabaseService {
@@ -18,6 +19,7 @@ class DatabaseService {
         location: doc.data['location'],
         //faculty: doc.data['faculty'],
         image: doc.data['photo'],
+        id: doc.documentID
       );
     }).toList();
   }
@@ -41,7 +43,8 @@ class DatabaseService {
         image: doc.data['photo'],
         category: doc.data['category'],
         availability: doc.data['availability'],
-        id: doc.data['id']
+        id: doc.data['id'],
+        foodCourtId: doc.data['foodCourtId'],
         //openingHour: doc.data['opening_hours']
       );
     }).toList();
@@ -75,6 +78,30 @@ class DatabaseService {
   Stream<List<Food>> get food {
     return foodCollection.snapshots()
       .map(_foodListFromSnapshot);
+  }
+
+  // Order
+
+  final CollectionReference orderCollection = Firestore.instance.collection('Order');
+
+  List<Order> _orderFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc){
+      return Order(
+        dishes: doc.data['dishes'],
+        foodStoreId: doc.data['foodStoreId'],
+        status: doc.data['status'],
+        time: doc.data['time'],
+        totalPrice: doc.data['totalPrice'].toDouble(),
+        userId: doc.data['userId'],
+        foodStoreName: doc.data['foodStoreName']
+      );
+    }).toList();
+  }
+  
+
+  Stream<List<Order>> get orders {
+    return orderCollection.snapshots()
+      .map(_orderFromSnapshot);
   }
 
 

@@ -1,4 +1,5 @@
 import 'package:eatwat/models/foodcourt_model.dart';
+import 'package:eatwat/screens/home/newStore.dart';
 import 'package:flutter/material.dart';
 
 class FoodcourtTile extends StatelessWidget {
@@ -13,6 +14,10 @@ class FoodcourtTile extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
         child: ListTile(
+          onTap: () async {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => NewStoreScreen(id: foodcourt.id, name: foodcourt.name)));
+                        },
           leading: Image.network(foodcourt.image,
             width: 100,
             fit: BoxFit.fitWidth,

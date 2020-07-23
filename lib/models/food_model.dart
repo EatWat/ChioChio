@@ -10,6 +10,14 @@ class Food {
 
   Food({this.name, this.price, this.image, this.id, this.availability, this.des});
 
+  String getName(){
+    return this.name;
+  }
+
+  int getQuantity(){
+    return this.quantity;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,

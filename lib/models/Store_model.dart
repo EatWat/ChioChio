@@ -7,8 +7,10 @@ class Store {
   final String category;
   bool availability;
   final String id;
+  final String foodCourtId;
+  
   //final InternalLinkedHashMap<dynamic,dynamic> openingHour;
 
-  Store({this.name, this.location, this.image, this.category, this.availability, this.id});
+  Store({this.name, this.location, this.image, this.category, this.availability, this.id, this.foodCourtId});
 
 }

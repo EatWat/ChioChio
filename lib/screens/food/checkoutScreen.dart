@@ -173,11 +173,15 @@ final email = user.email;
             'time': DateTime.now(),
             'totalPrice': widget.sum,
             'userId': email,
+            'foodStoreName': widget.cart[0].name,
             }
          ).then((value){
     orderId = value.documentID;
-    // print('aaaaaaaaaaaaaaaaa');
-    print(orderId);
+    
+    // widget.cart.forEach((e) {
+    //     print(e.name.toString());
+    // });
+    // print(widget.sum);
   });
        
      }

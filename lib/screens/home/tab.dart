@@ -33,6 +33,7 @@ class _TabPage extends State<TabPage>  with SingleTickerProviderStateMixin {
               color: Colors.red[200],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top: 40.0, left: 15.0),
@@ -45,7 +46,7 @@ class _TabPage extends State<TabPage>  with SingleTickerProviderStateMixin {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 40.0, left: 180.0),
+                  padding: EdgeInsets.only(top: 40.0),
                   child: FlatButton.icon(
                     icon: Icon(
                       Icons.person,
@@ -120,13 +121,12 @@ class _TabPage extends State<TabPage>  with SingleTickerProviderStateMixin {
           ],
         ),
       ),
-      Container(
-        height: MediaQuery.of(context).size.height - 200.0,
+      Expanded(
         child: TabBarView(
           controller: tabController,
           children: <Widget>[
             FoodcourtScreen(),
-            StoreScreen(),
+            StoreScreen(id: null),
           ],
         ),
       ),
