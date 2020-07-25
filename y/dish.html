@@ -11,39 +11,62 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.1/firebase-firestore.js"></script>
+    <style>
+        .label {
+            position: relative;
+        }
+        .btn {
+            background-color: #E57575; /* Green */
+        }
+        [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: relative;
+    opacity: 0;
+    pointer-events: none;
+}
+        
+    </style>
+    
     
     
     <title>Document</title>
 </head>
 <body>
-        <nav class="navbar navbar-light bg-warning mb-4">
-                <span class="navbar-brand mb-0 h1">EatWat</span>
-                <div class="nav-warpper container">
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li class="logged-in">
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li class="logged-in">
-                            <a href="dish.html" class="white-text modal-trigger" data-target="modal-create">Dish</a>
-                        </li>
-                        <li class="logged-in">
-                            <a href="order.html" class="white-text modal-trigger">Order</a>
-                        </li>
-                        <li class="logged-in">
-                            <a href="#" class="white-text modal-trigger" data-target="modal-account">Account</a>
-                        </li>
-                        <li class="logged-in">
-                            <a href="#" class="white-text" id="logout">Logout</a>
-                        </li>
-                        <li class="logged-out">
-                            <a href="#" class="white-text modal-trigger" data-target="modal-login">Login</a>
-                        </li>
-                        <li class="logged-out">
-                            <a href="#" class="white-text modal-trigger" data-target="modal-signup">Sign up</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+    <nav class="navbar navbar-light mb-4">
+            <span class="navbar-brand mb-0 h1">EatWat</span>
+            <div class="nav-warpper container">
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li class="logged-in">
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li class="logged-in">
+                        <a href="dish.html" class="white-text modal-trigger" data-target="modal-create">Dish</a>
+                    </li>
+                    <li class="logged-in">
+                        <a href="order.html" class="white-text modal-trigger">Order</a>
+                    </li>
+                    <!-- <li class="logged-in">
+                        <a href="#" class="white-text modal-trigger" data-target="modal-account">Account</a>
+                    </li> -->
+                    <li class="logged-in">
+                        <a href="#" class="white-text" id="logout">Logout</a>
+                    </li>
+                    <li class="logged-out">
+                        <a href="#" class="white-text modal-trigger" data-target="modal-login">Login</a>
+                    </li>
+                    <li class="logged-out">
+                        <a href="#" class="white-text modal-trigger" data-target="modal-signup">Sign up</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    
+            <!-- ACCOUNT MODAL -->
+    <div id="modal-account" class="modal">
+        <div class="modal-content center-align">
+        <h4>Account details</h4><br />
+        <div class="account-details"></div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -52,6 +75,7 @@
                     <div class="form-group">
                         <label>Dish name: </label>
                         <input type="text" class="form-control" id="name" placeholder="Enter Dish Name:" required></input>
+                        
                     </div>
 
                     <div class="form-group">
@@ -60,9 +84,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Price: </label>
-                        <input type="number" class="form-control" id="price" placeholder="Enter Dish Price:" required></input>
-                    </div>
+                            <label>Price: </label>
+                            <input type="number" step=".01" class="form-control" id="price" placeholder="Enter Dish Price:"></input>
+                        </div>
 
                     <div class="form-group">
                         <label>Photo Link: </label>
@@ -70,8 +94,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Availability: </label>
-                        <input type="checkbox" class="form-control" id="availability" checked=true></input>
+                        <input type="checkbox" class="custom-control-input" id="availability" checked=true> 
+                        <label for="availability" class="custom-control-label">Available: </label>
+                        
                     </div>
 
                     <button type="submit" id="button1" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>Add Dish</button>
@@ -91,8 +116,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <!-- <script src="<https://kit.fontawesome.com/528fdd3007.js" crossorigin="anonymous"></script> -->
     
-    <script defer type="text/javascript" src="dish.js"></script>
-    <script type="text/javascript" src="dish.js"></script>
+    <script defer type="text/javascript" src="scripts/dish.js"></script>
+    <script type="text/javascript" src="scripts/dish.js"></script>
     <script language="javascript">
         readTask();
     </script>

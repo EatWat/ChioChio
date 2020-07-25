@@ -102,8 +102,8 @@ function readAcceptedOrder() {
             document.getElementById("CompleteOrderSection").innerHTML+= 
             `<p class="CompleteOrder-price">Total Price: ${taskValue.data().totalPrice}</p>
            
-            <button type="submit" style="color:white" class="btn btn-warning" 
-                      onclick="complete('${taskValue.id}')">Order Completed</button>
+            <button type="submit" style="color:white" class="btn btn-primary" 
+                      onclick="complete('${taskValue.id}')">Order Ready</button>
             
             <p>-----------------------------------------------</p>
             </div>
