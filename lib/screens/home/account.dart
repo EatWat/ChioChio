@@ -34,13 +34,13 @@ class Account extends StatelessWidget {
               children: <Widget>[
                 Icon(
                   Icons.email,
-                  color: Colors.grey[400],
+                  color: Colors.grey[800],
                 ),
                 SizedBox(width: 10.0),
                 Text(
                   '${user.email}',
                   style: TextStyle(
-                    color: Colors.grey[400],
+                    color: Colors.grey[800],
                     fontSize: 18.0,
                     letterSpacing: 1.0,
                   ),

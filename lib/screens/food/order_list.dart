@@ -14,6 +14,7 @@ class _OrderListState extends State<OrderList> {
   Widget build(BuildContext context) {
     // access the data from the stream, return a list
     final orders = Provider.of<List<Order>>(context);
+    if (orders!=null)orders.toList().sort((a,b){return a.time.compareTo(b.time);});
     
     // use listview to output all items in the list
     return ListView.builder(

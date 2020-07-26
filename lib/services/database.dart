@@ -84,6 +84,8 @@ class DatabaseService {
 
   final CollectionReference orderCollection = Firestore.instance.collection('Order');
 
+  //final Future<QuerySnapshot> orderCollection = Firestore.instance.collection('Order').orderBy('time', descending: true).getDocuments();
+
   List<Order> _orderFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc){
       return Order(
@@ -93,7 +95,8 @@ class DatabaseService {
         time: doc.data['time'],
         totalPrice: doc.data['totalPrice'].toDouble(),
         userId: doc.data['userId'],
-        foodStoreName: doc.data['foodStoreName']
+        foodStoreName: doc.data['foodStoreName'],
+        documentID: doc.data["documentID"]
       );
     }).toList();
   }

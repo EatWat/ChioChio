@@ -20,7 +20,7 @@ class _NewStoreScreenState extends State<NewStoreScreen> {
         value: DatabaseService().stores, 
         child: Scaffold(
           appBar: AppBar(
-        title: Text("${widget.name}", style: TextStyle(color: Colors.white)),
+        title: Text('Stores in ' + "${widget.name}", style: TextStyle(color: Colors.white)),
         //centerTitle: true,
         backgroundColor: Colors.red[200],
         elevation: 0.0,

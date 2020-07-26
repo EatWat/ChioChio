@@ -49,7 +49,7 @@ class _FoodScreenState extends State<FoodScreen> {
             bottom: TabBar(
               indicatorColor: Colors.red[300],
                 tabs: <Widget>[
-                  Tab(child: Text( "All food",
+                  Tab(child: Text( "Dishes",
                         style: TextStyle(fontFamily: 'Raleway', fontSize: 18))),
                   Tab(child: Text( "My cart",
                         style: TextStyle(fontFamily: 'Raleway', fontSize: 18))),
@@ -77,7 +77,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     });
                   });
                 }, widget.id),
-                CheckoutScreen(cart, sum),
+                CheckoutScreen(cart, sum, widget.name),
               ],
             ),
           )

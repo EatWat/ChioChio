@@ -1,4 +1,5 @@
 import 'package:eatwat/screens/home/foodcourt.dart';
+import 'package:eatwat/screens/wrapper.dart';
 import 'package:eatwat/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -161,7 +162,7 @@ class _SignInState extends State<SignIn> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => FoodcourtScreen()));
+                                    builder: (context) => Wrapper()));
                           }
                         }
                       },

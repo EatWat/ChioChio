@@ -7,8 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class CheckoutScreen extends StatefulWidget {
   List cart;
   double sum;
+  String name;
 
-  CheckoutScreen(this.cart, this.sum);
+  CheckoutScreen(this.cart, this.sum, this.name);
   
 
   @override
@@ -46,7 +47,7 @@ String orderId = '';
                     } ,
                     child: Icon(Icons.keyboard_arrow_up, color: Color(0xFFD3D3D3))
                     ),
-                  Text('${widget.cart[index].quantity}', style: TextStyle(fontSize: 18.0),),
+                  Text('${widget.cart[index].quantity}', style: TextStyle(fontSize: 18.0,color: Colors.grey[800],),),
                   InkWell(
                     onTap:(){
                       setState(() {
@@ -69,7 +70,8 @@ String orderId = '';
                 widget.cart[index].name,
                 style: TextStyle(
                   fontSize: 16.0,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
                 ),
               ),
             ),
@@ -77,8 +79,9 @@ String orderId = '';
             Container(
               width: 60.0,
               child: Text(
-                "\$${widget.cart[index].price}",
+                "\$${widget.cart[index].price.toStringAsFixed(2)}",
                 style: TextStyle(
+                  color: Colors.grey[800],
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold
                 ),
@@ -117,14 +120,14 @@ String orderId = '';
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.grey[800],
               ),),
             trailing: Text(
               "\$${widget.sum.toDouble()}",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Colors.grey[800],
               ),),
           ),
     
@@ -166,23 +169,18 @@ String orderId = '';
 
 final FirebaseUser user = await FirebaseAuth.instance.currentUser();
 final email = user.email;
-   await Firestore.instance.collection('Order').add(
-           {'dishes': dishes,
+  DocumentReference ref = Firestore.instance.collection("Order").document();
+  await ref.setData({
+            'dishes': dishes,
             'foodStoreId': foodStoreId,
             'status': 1,
             'time': DateTime.now(),
             'totalPrice': widget.sum,
             'userId': email,
-            'foodStoreName': widget.cart[0].name,
-            }
-         ).then((value){
-    orderId = value.documentID;
-    
-    // widget.cart.forEach((e) {
-    //     print(e.name.toString());
-    // });
-    // print(widget.sum);
+            'foodStoreName': widget.name,
+            "documentID": ref.documentID
   });
+  orderId = ref.documentID;
        
      }
   }

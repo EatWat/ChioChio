@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
 
         ),
         BottomNavigationBarItem(
-          icon: new Icon(Icons.shopping_cart),
+          icon: new Icon(Icons.receipt),
           title: new Text('Order'),
         ),
         BottomNavigationBarItem(
