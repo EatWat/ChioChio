@@ -1,96 +1,81 @@
+// Your web app's Firebase configuration
+var firebaseConfig = {
+	apiKey: 'AIzaSyAEURaYtNCI_CNUyfksS5Jq73keYLo9ZWE',
+	authDomain: 'eatwat-f5e10.firebaseapp.com',
+	databaseURL: 'https://eatwat-f5e10.firebaseio.com',
+	projectId: 'eatwat-f5e10',
+	storageBucket: 'eatwat-f5e10.appspot.com',
+	messagingSenderId: '316817346204',
+	appId: '1:316817346204:web:99b76da8f36ab4b4efa759',
+	measurementId: 'G-PFJLZPY5BX'
+};
+// Initialize Firebase
 
-  
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyAEURaYtNCI_CNUyfksS5Jq73keYLo9ZWE",
-    authDomain: "eatwat-f5e10.firebaseapp.com",
-    databaseURL: "https://eatwat-f5e10.firebaseio.com",
-    projectId: "eatwat-f5e10",
-    storageBucket: "eatwat-f5e10.appspot.com",
-    messagingSenderId: "316817346204",
-    appId: "1:316817346204:web:99b76da8f36ab4b4efa759",
-    measurementId: "G-PFJLZPY5BX",
-  };
-  // Initialize Firebase
-  
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
+if (!firebase.apps.length) {
+	firebase.initializeApp(firebaseConfig);
+}
 
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      
-      document.querySelectorAll('.logged-out').forEach(item => item.style.display = 'none');
-      document.querySelectorAll('.logged-in').forEach(item => item.style.display = 'block');
-
-    } else {
-      document.querySelectorAll('.logged-out').forEach(item => item.style.display = 'block');
-      document.querySelectorAll('.logged-in').forEach(item => item.style.display = 'none');
-    }
-})
+firebase.auth().onAuthStateChanged((user) => {
+	if (user) {
+		document.querySelectorAll('.logged-out').forEach((item) => (item.style.display = 'none'));
+		document.querySelectorAll('.logged-in').forEach((item) => (item.style.display = 'block'));
+	} else {
+		document.querySelectorAll('.logged-out').forEach((item) => (item.style.display = 'block'));
+		document.querySelectorAll('.logged-in').forEach((item) => (item.style.display = 'none'));
+	}
+});
 
 // logout
 document.querySelector('#logout').addEventListener('click', (e) => {
-  e.preventDefault();
-  firebase.auth().signOut();
-  location.replace("index.html");
+	e.preventDefault();
+	firebase.auth().signOut();
+	location.replace('index.html');
 });
 
-  
-  if(document.getElementById("form")){
-    document.getElementById("form").addEventListener("submit",(e)=>{
+if (document.getElementById('form')) {
+	document.getElementById('form').addEventListener('submit', (e) => {
+		var name = document.getElementById('name').value;
+		var description = document.getElementById('description').value;
+		var price = Number(document.getElementById('price').value).toFixed(2);
+		var photo = document.getElementById('photo').value;
+		var availability = document.getElementById('availability').checked;
+		e.preventDefault();
+		if (name != '' && price != 0) {
+			createTask(name, description, price, photo, availability);
+			form.reset();
+		}
+		// account info
 
-      var name = document.getElementById("name").value;
-      var description = document.getElementById("description").value;
-      var price = Number(document.getElementById("price").value).toFixed(2);
-      var photo = document.getElementById("photo").value;
-      var availability = document.getElementById("availability").checked;
-      e.preventDefault();
-      if(name != "" && price != 0) {
-        createTask(name, description, price, photo, availability);
-        form.reset();
-      }
-            // account info
-
-      document.querySelector('.account-details').innerHTML = `
+		document.querySelector('.account-details').innerHTML = `
       <div>Logged in as ${user.email}</div>
     `;
-    });
-  }
-  
+	});
+}
 
+function createTask(name, description, price, photo, availability) {
+	var dish = {
+		name: name,
+		description: description,
+		price: Number(price),
+		photo: photo,
+		availability: availability,
+		foodStoreId: firebase.auth().currentUser.email
+	};
+	let db = firebase.firestore().collection('Dish/');
+	db.add(dish).then(() => {
+		Swal.fire('Good job!', 'Dish Added', 'success');
+		document.getElementById('cardSection').innerHTML = '';
 
-  function createTask(name, description, price, photo, availability) {
-    var dish={
-      name: name,
-      description: description,
-      price: price,
-      photo: photo,
-      availability: availability,
-      foodStoreId: firebase.auth().currentUser.email,
-      
-    }
-    let db = firebase.firestore().collection("Dish/");
-    db.add(dish).then(()=>{
-      Swal.fire(
-        "Good job!",
-        "Dish Added",
-        "success"
-      )
-      document.getElementById("cardSection").innerHTML="";
-      
-      readTask();
-    })
-  }
+		readTask();
+	});
+}
 
-
-  function readTask() {
-    firebase.firestore().collection("Dish").onSnapshot(function(snapshot) {
-        document.getElementById("cardSection").innerHTML="";
-        snapshot.forEach(function(taskValue){
-          if(taskValue.data().foodStoreId == firebase.auth().currentUser.email){
-            document.getElementById("cardSection").innerHTML+= 
-              `
+function readTask() {
+	firebase.firestore().collection('Dish').onSnapshot(function(snapshot) {
+		document.getElementById('cardSection').innerHTML = '';
+		snapshot.forEach(function(taskValue) {
+			if (taskValue.data().foodStoreId == firebase.auth().currentUser.email) {
+				document.getElementById('cardSection').innerHTML += `
               <div class="card mb-3">
                   <div class="card-body">
                   <table class="table table-borderless">
@@ -110,7 +95,7 @@ document.querySelector('#logout').addEventListener('click', (e) => {
                   <tbody>
                     <tr style="border: none;">
                       <th scope="row">Price:</th>
-                      <td>$${taskValue.data().price.toFixed(2)}</td>
+                      <td>$${taskValue.data().price}</td>
                     </tr>
                   </tbody>
                   <tbody>
@@ -136,17 +121,14 @@ document.querySelector('#logout').addEventListener('click', (e) => {
                       </button>
                   </div>
                   </div>
-                  `
-          }
-        
-        });
-    });
-  }
+                  `;
+			}
+		});
+	});
+}
 
-
-  function reset() {
-    document.getElementById("firstSection").innerHTML = 
-    `
+function reset() {
+	document.getElementById('firstSection').innerHTML = `
     <form class="border border-dark p-4 mb-4" id="form">
       <div class="form-group">
           <label>Dish name: </label>
@@ -178,22 +160,21 @@ document.querySelector('#logout').addEventListener('click', (e) => {
       <button style="display: none" id="button3" class="btn btn-danger">Cancel</button>
     </form>`;
 
-    document.getElementById("form").addEventListener("submit",(e)=>{
-      var name = document.getElementById("name").value;
-      var description = document.getElementById("description").value;
-      var price = Number(document.getElementById("price").value).toFixed(2);
-      var photo = document.getElementById("photo").value;
-      var availability = document.getElementById("availability").checked;
-      
-      e.preventDefault();
-      createTask(name, description, price, photo, availability);
-      form.reset();
-    });
-  }
+	document.getElementById('form').addEventListener('submit', (e) => {
+		var name = document.getElementById('name').value;
+		var description = document.getElementById('description').value;
+		var price = Number(document.getElementById('price').value).toFixed(2);
+		var photo = document.getElementById('photo').value;
+		var availability = document.getElementById('availability').checked;
 
-  function updateTask(id,name, description, price, photo, availability) {
-    document.getElementById("firstSection").innerHTML = 
-    `<form class="border p-4 mb-4" id="form2">
+		e.preventDefault();
+		createTask(name, description, price, photo, availability);
+		form.reset();
+	});
+}
+
+function updateTask(id, name, description, price, photo, availability) {
+	document.getElementById('firstSection').innerHTML = `<form class="border p-4 mb-4" id="form2">
       <div class="form-group">
           <label>Dish name: </label>
           <input type="text" class="form-control" id="name" placeholder="Enter Dish Name:"></input>
@@ -225,66 +206,58 @@ document.querySelector('#logout').addEventListener('click', (e) => {
       <button style="display: inline-block" id="button3" class="btn btn-danger">
       <i class="fas fa-ban"></i>Cancel</button>
     </form>`;
-    
-    document.getElementById("form2").addEventListener("submit",(e)=>{
-      e.preventDefault();
-    });
 
-    document.getElementById("button3").addEventListener("click",(e)=>{
-      reset();
-    });
+	document.getElementById('form2').addEventListener('submit', (e) => {
+		e.preventDefault();
+	});
 
-    document.getElementById("button2").addEventListener("click",(e)=>{
-      updateTask2(id,document.getElementById("name").value, document.getElementById("description").value, 
-      Number(document.getElementById("price").value).toFixed(2), document.getElementById("photo").value, document.getElementById("availability").checked)
-    });
-    
+	document.getElementById('button3').addEventListener('click', (e) => {
+		reset();
+	});
 
-    document.getElementById("name").value = name;
-    document.getElementById("description").value = description;
-    document.getElementById("price").value = Number(price).toFixed(2);
-    document.getElementById("photo").value = photo;
-    
+	document.getElementById('button2').addEventListener('click', (e) => {
+		updateTask2(
+			id,
+			document.getElementById('name').value,
+			document.getElementById('description').value,
+			Number(document.getElementById('price').value).toFixed(2),
+			document.getElementById('photo').value,
+			document.getElementById('availability').checked
+		);
+	});
 
-    
-    document.getElementById("availability").checked = availability;
-    ;
-  }
+	document.getElementById('name').value = name;
+	document.getElementById('description').value = description;
+	document.getElementById('price').value = Number(price).toFixed(2);
+	document.getElementById('photo').value = photo;
 
-  function updateTask2(id,name, description, price, photo, availability) {
-    var dishUpdated={
-      name: name,
-      description: description,
-      price: price,
-      photo: photo,
-      availability: availability,
-      foodStoreId: firebase.auth().currentUser.email,
-    }
-    
-    let db = firebase.firestore().collection("Dish").doc(id);
-    db.set(dishUpdated).then(()=>{
-      Swal.fire(
-        "Good job!",
-        "Dish Updated",
-        "success"
-      )
-    })
-    document.getElementById("cardSection").innerHTML="";
-    readTask();
-    reset();
-  }
+	document.getElementById('availability').checked = availability;
+}
 
-  function deleteDish(id) {
-    firebase.firestore().collection("Dish").doc(id).delete().then(()=>{
-      Swal.fire(
-        "Good job!",
-        "Dish Deleted",
-        "success"
-      )
-    });
-    reset();
-    document.getElementById("cardSection").innerHTML="";
-    readTask();
-    
-  }
+function updateTask2(id, name, description, price, photo, availability) {
+	var dishUpdated = {
+		name: name,
+		description: description,
+		price: Number(price),
+		photo: photo,
+		availability: availability,
+		foodStoreId: firebase.auth().currentUser.email
+	};
 
+	let db = firebase.firestore().collection('Dish').doc(id);
+	db.set(dishUpdated).then(() => {
+		Swal.fire('Good job!', 'Dish Updated', 'success');
+	});
+	document.getElementById('cardSection').innerHTML = '';
+	readTask();
+	reset();
+}
+
+function deleteDish(id) {
+	firebase.firestore().collection('Dish').doc(id).delete().then(() => {
+		Swal.fire('Good job!', 'Dish Deleted', 'success');
+	});
+	reset();
+	document.getElementById('cardSection').innerHTML = '';
+	readTask();
+}
